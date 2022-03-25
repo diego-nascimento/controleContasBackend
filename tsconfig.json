@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "types": ["jest"],
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "moduleResolution": "node",
+    "skipLibCheck": true,                     
+    "target": "ESNext",    
+    "strictNullChecks": true,
+    "esModuleInterop": true                                               
+  }
+}
