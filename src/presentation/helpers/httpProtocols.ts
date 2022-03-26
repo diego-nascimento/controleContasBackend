@@ -1,5 +1,6 @@
 export type httpRequest = {
   body: any
+  file: any
 }
 
 export type httpResponse = {

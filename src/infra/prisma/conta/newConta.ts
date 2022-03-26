@@ -1,6 +1,8 @@
-import { InewContaInfra } from '../../../data/protocols/conta/newConta'
+import {
+  InewContaInfra,
+  InewContaInfraParams
+} from '../../../data/protocols/conta/newConta'
 import { contaModel } from '../../../domain/models/conta'
-import { createContaParams } from '../../../domain/useCases/conta/newConta'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
@@ -11,7 +13,7 @@ export class newContaInfra implements InewContaInfra {
     name,
     paymentDate,
     value
-  }: createContaParams): Promise<contaModel> {
+  }: InewContaInfraParams): Promise<contaModel> {
     try {
       const newConta = await prisma.conta.create({
         data: {
@@ -19,8 +21,16 @@ export class newContaInfra implements InewContaInfra {
           name,
           paymentDate,
           value
+        },
+        select: {
+          id: true,
+          expirationDate: true,
+          name: true,
+          paymentDate: true,
+          value: true
         }
       })
+
       return newConta
     } catch (error) {
       throw new Error(error)

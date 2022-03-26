@@ -22,12 +22,20 @@ export class newContaPresentation implements IController {
           })
         }
       }
+
       const { expirationDate, name, paymentDate, value } = request.body
+      const file = request.file
+
       const response = await this.conta.createConta({
         expirationDate,
         name,
         paymentDate,
-        value
+        value: parseFloat(value),
+        image: file?.path
+          ? {
+              path: file.path
+            }
+          : undefined
       })
       return handleResponses({
         status: responseOptions.success,

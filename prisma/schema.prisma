@@ -16,6 +16,14 @@ model Conta {
   value          Float
   expirationDate DateTime
   paymentDate    DateTime?
+  image          Image?    @relation(fields: [imageId], references: [id])
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
+  imageId        Int?      @unique
+}
+
+model Image {
+  id    Int    @id @default(autoincrement())
+  url   String
+  Conta Conta?
 }
