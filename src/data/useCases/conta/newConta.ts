@@ -20,24 +20,26 @@ export class newContaData implements InewConta {
     name,
     paymentDate,
     value,
-    image
+    image,
+    user
   }: createContaParams): Promise<contaModel> {
     try {
-      const newConta = await this.conta.createConta({
-        expirationDate,
-        name,
-        paymentDate,
-        value
-      })
-
       let newImage: IImage | undefined
 
       if (image) {
         newImage = await this.image.newImage({
-          path: image.path,
-          account: newConta.id
+          path: image.path
         })
       }
+
+      const newConta = await this.conta.createConta({
+        expirationDate,
+        name,
+        paymentDate,
+        value,
+        image: newImage?.id || undefined,
+        user: user
+      })
 
       return {
         ...newConta,

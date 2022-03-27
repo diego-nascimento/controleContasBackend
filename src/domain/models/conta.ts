@@ -1,4 +1,5 @@
 import { IImage } from './image'
+import { userModel } from './user'
 
 export type contaModel = {
   id: number
@@ -7,4 +8,5 @@ export type contaModel = {
   expirationDate: Date
   paymentDate: Date | null
   image?: IImage | null
+  user?: userModel | null
 }

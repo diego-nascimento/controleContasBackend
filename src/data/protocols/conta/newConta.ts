@@ -1,11 +1,12 @@
 import { contaModel } from '../../../domain/models/conta'
-import { createContaParams } from '../../../domain/useCases/conta/newConta'
 
 export type InewContaInfraParams = {
   name: string
   value: number
   expirationDate: Date
   paymentDate: Date | null
+  image?: number
+  user?: number
 }
 
 export interface InewContaInfra {
@@ -13,6 +14,8 @@ export interface InewContaInfra {
     expirationDate,
     name,
     paymentDate,
-    value
+    value,
+    user,
+    image
   }: InewContaInfraParams): Promise<contaModel>
 }

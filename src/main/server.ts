@@ -1,5 +1,8 @@
-import express, { Express } from 'express'
-import { routes } from './routes'
+import express, { Express, Router } from 'express'
+import contasRoutes from './routes/contas'
+import userRoutes from './routes/user'
+
+const routes: Router[] = [contasRoutes, userRoutes]
 
 class Server {
   server: Express
@@ -11,7 +14,9 @@ class Server {
 
   midwares() {
     this.server.use(express.json())
-    this.server.use(routes)
+    for (const route of routes) {
+      this.server.use(route)
+    }
   }
 }
 

@@ -12,7 +12,9 @@ export class newContaInfra implements InewContaInfra {
     expirationDate,
     name,
     paymentDate,
-    value
+    value,
+    image,
+    user
   }: InewContaInfraParams): Promise<contaModel> {
     try {
       const newConta = await prisma.conta.create({
@@ -20,14 +22,41 @@ export class newContaInfra implements InewContaInfra {
           expirationDate,
           name,
           paymentDate,
-          value
+          value,
+          image: image
+            ? {
+                connect: {
+                  id: image
+                }
+              }
+            : undefined,
+          user: user
+            ? {
+                connect: {
+                  id: user
+                }
+              }
+            : undefined
         },
         select: {
           id: true,
           expirationDate: true,
           name: true,
           paymentDate: true,
-          value: true
+          value: true,
+          image: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              image: {
+                select: {
+                  id: true,
+                  url: true
+                }
+              }
+            }
+          }
         }
       })
 

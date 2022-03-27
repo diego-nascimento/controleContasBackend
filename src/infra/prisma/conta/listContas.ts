@@ -14,6 +14,13 @@ export class listContasInfra implements IListContasInfra {
           name: true,
           paymentDate: true,
           value: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              image: true
+            }
+          },
           image: {
             select: {
               id: true,

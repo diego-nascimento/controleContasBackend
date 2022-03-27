@@ -1,15 +1,15 @@
-import { InewConta } from '../../../domain/useCases/conta/newConta'
+import { InewUser } from '../../../domain/useCases/user/newUser'
 import { IController } from '../../helpers/controllersProtocol'
 import { handleResponses } from '../../helpers/handleResponses'
 import { httpRequest, httpResponse } from '../../helpers/httpProtocols'
 import { responseOptions } from '../../helpers/responses'
 
-export class newContaPresentation implements IController {
-  private readonly conta: InewConta
-  private readonly requiredFields = ['expirationDate', 'name', 'value']
+export class newUserPresentation implements IController {
+  private readonly user: InewUser
+  private readonly requiredFields = ['name']
 
-  constructor(newConta: InewConta) {
-    this.conta = newConta
+  constructor(user: InewUser) {
+    this.user = user
   }
 
   async handler(request: httpRequest): Promise<httpResponse> {
@@ -23,16 +23,11 @@ export class newContaPresentation implements IController {
         }
       }
 
-      const { expirationDate, name, paymentDate, value } = request.body
-      const user: string | undefined = request.body.user
+      const { name } = request.body
       const file = request.file
 
-      const response = await this.conta.createConta({
-        expirationDate,
+      const response = await this.user.newUser({
         name,
-        paymentDate,
-        value: parseFloat(value),
-        user: user ? parseInt(user) : undefined,
         image: file?.path
           ? {
               path: file.path

@@ -1,14 +1,13 @@
 import { contaModel } from '../../models/conta'
-import { IImageParams } from '../../models/image'
+import { IImageParams } from '../image/newImage'
 
 export type createContaParams = {
   name: string
   value: number
   expirationDate: Date
   paymentDate: Date | null
-  image?: {
-    path: string
-  }
+  image?: IImageParams
+  user?: number
 }
 
 export interface InewConta {
@@ -16,6 +15,7 @@ export interface InewConta {
     expirationDate,
     name,
     paymentDate,
-    value
+    value,
+    user
   }: createContaParams): Promise<contaModel>
 }
