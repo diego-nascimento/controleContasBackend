@@ -6,6 +6,7 @@ import {
 export interface IListMovimentationInfra {
   list({
     after,
-    before
+    before,
+    status
   }: listMovimentationParams): Promise<listMovimentationResponse>
 }

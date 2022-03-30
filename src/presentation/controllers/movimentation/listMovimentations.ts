@@ -14,10 +14,12 @@ export class listMovimentationsPresentation implements IController {
     try {
       const after = request.body.after
       const before = request.body.before
+      const status = request.body.status
 
       const response = await this.movimentations.listMovimentation({
         after,
-        before
+        before,
+        status
       })
 
       return await handleResponses({

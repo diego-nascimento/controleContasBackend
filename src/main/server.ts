@@ -1,9 +1,9 @@
 import express, { Express, Router } from 'express'
-import contasRoutes from './routes/contas'
+import movimentationRoutes from './routes/movimentations'
 import userRoutes from './routes/user'
 import cors from 'cors'
 
-const routes: Router[] = [contasRoutes, userRoutes]
+const routes: Router[] = [movimentationRoutes, userRoutes]
 
 class Server {
   server: Express

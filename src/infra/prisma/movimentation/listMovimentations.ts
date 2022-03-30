@@ -1,15 +1,23 @@
 import { IListMovimentationInfra } from '../../../data/protocols/movimentaion/listMovimentation'
 
 import { PrismaClient } from '@prisma/client'
-import { listMovimentationResponse } from '../../../domain/useCases/movimentation/listMovimentations'
+import {
+  listMovimentationParams,
+  listMovimentationResponse
+} from '../../../domain/useCases/movimentation/listMovimentations'
 
 const prisma = new PrismaClient()
 
 export class listMovimentationsInfra implements IListMovimentationInfra {
-  async list({ before, after }): Promise<listMovimentationResponse> {
+  async list({
+    before,
+    after,
+    status
+  }: listMovimentationParams): Promise<listMovimentationResponse> {
     try {
       const movimentations = await prisma.movimentation.findMany({
         where: {
+          status,
           date: {
             gte: after ? new Date(after) : undefined,
             lte: before ? new Date(before) : undefined
@@ -39,6 +47,7 @@ export class listMovimentationsInfra implements IListMovimentationInfra {
 
       const aggregation = await prisma.movimentation.aggregate({
         where: {
+          status,
           date: {
             gte: after ? new Date(after) : undefined,
             lte: before ? new Date(before) : undefined

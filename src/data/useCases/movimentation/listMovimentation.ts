@@ -13,12 +13,14 @@ export class listMovimentationData implements IListMovimentation {
 
   async listMovimentation({
     after,
-    before
+    before,
+    status
   }: listMovimentationParams): Promise<listMovimentationResponse> {
     try {
       const { movimentations, soma } = await this.movimentations.list({
         after,
-        before
+        before,
+        status
       })
       return {
         movimentations,
