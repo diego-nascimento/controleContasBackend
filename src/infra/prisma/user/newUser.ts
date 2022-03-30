@@ -1,8 +1,3 @@
-import {
-  InewContaInfra,
-  InewContaInfraParams
-} from '../../../data/protocols/conta/newConta'
-import { contaModel } from '../../../domain/models/conta'
 import { PrismaClient } from '@prisma/client'
 import {
   InewUserInfra,

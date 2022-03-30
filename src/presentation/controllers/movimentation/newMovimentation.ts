@@ -1,15 +1,15 @@
-import { InewConta } from '../../../domain/useCases/conta/newConta'
+import { InewMovimentation } from '../../../domain/useCases/movimentation/newMovimentation'
 import { IController } from '../../helpers/controllersProtocol'
 import { handleResponses } from '../../helpers/handleResponses'
 import { httpRequest, httpResponse } from '../../helpers/httpProtocols'
 import { responseOptions } from '../../helpers/responses'
 
-export class newContaPresentation implements IController {
-  private readonly conta: InewConta
-  private readonly requiredFields = ['expirationDate', 'name', 'value']
+export class newMovimentationPresentation implements IController {
+  private readonly movimentation: InewMovimentation
+  private readonly requiredFields = ['date', 'status', 'name', 'value']
 
-  constructor(newConta: InewConta) {
-    this.conta = newConta
+  constructor(newMovimentation: InewMovimentation) {
+    this.movimentation = newMovimentation
   }
 
   async handler(request: httpRequest): Promise<httpResponse> {
@@ -23,14 +23,14 @@ export class newContaPresentation implements IController {
         }
       }
 
-      const { expirationDate, name, paymentDate, value } = request.body
+      const { date, status, name, value } = request.body
       const user: string | undefined = request.body.user
       const file = request.file
 
-      const response = await this.conta.createConta({
-        expirationDate,
+      const response = await this.movimentation.createMovimentation({
+        status,
         name,
-        paymentDate,
+        date,
         value: parseFloat(value),
         user: user ? parseInt(user) : undefined,
         image: file?.path

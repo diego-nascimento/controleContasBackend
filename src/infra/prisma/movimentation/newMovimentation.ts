@@ -1,27 +1,27 @@
 import {
-  InewContaInfra,
-  InewContaInfraParams
-} from '../../../data/protocols/conta/newConta'
-import { contaModel } from '../../../domain/models/conta'
+  InewMovimentationInfra,
+  InewMovimentationInfraParams
+} from '../../../data/protocols/movimentaion/newMovimentation'
+import { movimentationModel } from '../../../domain/models/movimentation'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export class newContaInfra implements InewContaInfra {
+export class newMovimentationInfra implements InewMovimentationInfra {
   async createConta({
-    expirationDate,
     name,
-    paymentDate,
+    date,
+    status,
     value,
     image,
     user
-  }: InewContaInfraParams): Promise<contaModel> {
+  }: InewMovimentationInfraParams): Promise<movimentationModel> {
     try {
-      const newConta = await prisma.conta.create({
+      const newMovimentation = await prisma.movimentation.create({
         data: {
-          expirationDate,
           name,
-          paymentDate,
+          date,
+          status,
           value,
           image: image
             ? {
@@ -40,9 +40,9 @@ export class newContaInfra implements InewContaInfra {
         },
         select: {
           id: true,
-          expirationDate: true,
+          date: true,
+          status: true,
           name: true,
-          paymentDate: true,
           value: true,
           image: true,
           user: {
@@ -60,7 +60,7 @@ export class newContaInfra implements InewContaInfra {
         }
       })
 
-      return newConta
+      return newMovimentation
     } catch (error) {
       throw new Error(error)
     }

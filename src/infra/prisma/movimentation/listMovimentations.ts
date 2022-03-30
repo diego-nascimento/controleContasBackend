@@ -1,25 +1,25 @@
-import { IListContasInfra } from '../../../data/protocols/conta/listConta'
-import { contaModel } from '../../../domain/models/conta'
+import { IListMovimentationInfra } from '../../../data/protocols/movimentaion/listMovimentation'
+
 import { PrismaClient } from '@prisma/client'
-import { listContasResponse } from '../../../domain/useCases/conta/listConta'
+import { listMovimentationResponse } from '../../../domain/useCases/movimentation/listMovimentations'
 
 const prisma = new PrismaClient()
 
-export class listContasInfra implements IListContasInfra {
-  async list({ before, after }): Promise<listContasResponse> {
+export class listMovimentationsInfra implements IListMovimentationInfra {
+  async list({ before, after }): Promise<listMovimentationResponse> {
     try {
-      const contas = await prisma.conta.findMany({
+      const movimentations = await prisma.movimentation.findMany({
         where: {
-          paymentDate: {
+          date: {
             gte: after ? new Date(after) : undefined,
             lte: before ? new Date(before) : undefined
           }
         },
         select: {
           id: true,
-          expirationDate: true,
+          date: true,
           name: true,
-          paymentDate: true,
+          status: true,
           value: true,
           user: {
             select: {
@@ -37,9 +37,9 @@ export class listContasInfra implements IListContasInfra {
         }
       })
 
-      const aggregation = await prisma.conta.aggregate({
+      const aggregation = await prisma.movimentation.aggregate({
         where: {
-          paymentDate: {
+          date: {
             gte: after ? new Date(after) : undefined,
             lte: before ? new Date(before) : undefined
           }
@@ -50,7 +50,7 @@ export class listContasInfra implements IListContasInfra {
       })
 
       return {
-        contas,
+        movimentations,
         soma: aggregation._sum?.value ? aggregation._sum.value : 0
       }
     } catch (error) {

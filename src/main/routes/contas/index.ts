@@ -1,16 +1,19 @@
 import { Router } from 'express'
 import { multerConfig } from '../../../infra/multer/config'
 import { httpExpressController } from '../../adapters/httpExpressController'
-import { listContasFactory } from '../../factory/conta/listContas'
-import { newContaFactory } from '../../factory/conta/newConta'
+import { listMovimentationFactory } from '../../factory/movimentation/listMovimentation'
+import { newMovimentationFactory } from '../../factory/movimentation/newMovimentation'
 
 const routes = Router()
 
 routes.post(
-  '/conta',
+  '/movimentation',
   multerConfig.single('image'),
-  httpExpressController(newContaFactory())
+  httpExpressController(newMovimentationFactory())
 )
-routes.post('/contas', httpExpressController(listContasFactory()))
+routes.post(
+  '/movimentations',
+  httpExpressController(listMovimentationFactory())
+)
 
 export default routes

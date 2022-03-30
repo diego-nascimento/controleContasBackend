@@ -1,12 +1,12 @@
 import { IImage } from './image'
 import { userModel } from './user'
 
-export type contaModel = {
+export type movimentationModel = {
   id: number
   name: string
   value: number
-  expirationDate: Date
-  paymentDate: Date | null
+  date: Date
+  status: string
   image?: IImage | null
   user?: userModel | null
 }

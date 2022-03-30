@@ -1,13 +1,13 @@
-import { IListContas } from '../../../domain/useCases/conta/listConta'
+import { IListMovimentation } from '../../../domain/useCases/movimentation/listMovimentations'
 import { IController } from '../../helpers/controllersProtocol'
 import { handleResponses } from '../../helpers/handleResponses'
 import { httpRequest, httpResponse } from '../../helpers/httpProtocols'
 import { responseOptions } from '../../helpers/responses'
 
-export class listContasPresentation implements IController {
-  private readonly contas: IListContas
-  constructor(contas: IListContas) {
-    this.contas = contas
+export class listMovimentationsPresentation implements IController {
+  private readonly movimentations: IListMovimentation
+  constructor(contas: IListMovimentation) {
+    this.movimentations = contas
   }
 
   async handler(request: httpRequest): Promise<httpResponse> {
@@ -15,7 +15,10 @@ export class listContasPresentation implements IController {
       const after = request.body.after
       const before = request.body.before
 
-      const response = await this.contas.listContas({ after, before })
+      const response = await this.movimentations.listMovimentation({
+        after,
+        before
+      })
 
       return await handleResponses({
         status: 200,
