@@ -12,12 +12,14 @@ export class listMovimentationsInfra implements IListMovimentationInfra {
   async list({
     before,
     after,
-    status
+    status,
+    user
   }: listMovimentationParams): Promise<listMovimentationResponse> {
     try {
       const movimentations = await prisma.movimentation.findMany({
         where: {
           status,
+          userId: user,
           date: {
             gte: after ? new Date(after) : undefined,
             lte: before ? new Date(before) : undefined
@@ -48,6 +50,7 @@ export class listMovimentationsInfra implements IListMovimentationInfra {
       const aggregation = await prisma.movimentation.aggregate({
         where: {
           status,
+          userId: user,
           date: {
             gte: after ? new Date(after) : undefined,
             lte: before ? new Date(before) : undefined

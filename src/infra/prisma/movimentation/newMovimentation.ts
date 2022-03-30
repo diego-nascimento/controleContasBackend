@@ -22,7 +22,7 @@ export class newMovimentationInfra implements InewMovimentationInfra {
           name,
           date,
           status,
-          value,
+          value: status === 'entry' ? value : -value,
           image: image
             ? {
                 connect: {

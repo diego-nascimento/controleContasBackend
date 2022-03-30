@@ -15,11 +15,20 @@ export class listMovimentationsPresentation implements IController {
       const after = request.body.after
       const before = request.body.before
       const status = request.body.status
+      const user = request.body.user
+
+      if (status && status !== 'exit' && status !== 'entry') {
+        return handleResponses({
+          data: `Error: status should have values entry or exit`,
+          status: responseOptions.badRequest
+        })
+      }
 
       const response = await this.movimentations.listMovimentation({
         after,
         before,
-        status
+        status,
+        user
       })
 
       return await handleResponses({

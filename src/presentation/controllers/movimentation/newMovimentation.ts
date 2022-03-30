@@ -24,6 +24,13 @@ export class newMovimentationPresentation implements IController {
       }
 
       const { date, status, name, value } = request.body
+
+      if (status !== 'exit' && status !== 'entry') {
+        return handleResponses({
+          data: `Error: status should have values entry or exit`,
+          status: responseOptions.badRequest
+        })
+      }
       const user: string | undefined = request.body.user
       const file = request.file
 

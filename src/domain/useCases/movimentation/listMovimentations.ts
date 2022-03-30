@@ -4,6 +4,7 @@ export interface listMovimentationParams {
   before?: string
   after?: string
   status?: string
+  user?: number
 }
 
 export interface listMovimentationResponse {
@@ -15,6 +16,7 @@ export interface IListMovimentation {
   listMovimentation({
     after,
     before,
-    status
+    status,
+    user
   }: listMovimentationParams): Promise<listMovimentationResponse>
 }
