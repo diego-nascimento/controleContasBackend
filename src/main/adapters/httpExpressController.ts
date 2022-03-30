@@ -10,8 +10,10 @@ export const httpExpressController = (controller: IController) => {
   return async (req: requestWithMulter, res: Response) => {
     const httpReq: httpRequest = {
       body: req.body,
-      file: req.file
+      file: req.file,
+      query: req.query
     }
+
     const response = await controller.handler(httpReq)
     return res.status(response.statusCode).json(response.body)
   }

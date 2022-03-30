@@ -1,5 +1,8 @@
-import { contaModel } from '../../../domain/models/conta'
+import {
+  listContasParams,
+  listContasResponse
+} from '../../../domain/useCases/conta/listConta'
 
 export interface IListContasInfra {
-  list(): Promise<contaModel[]>
+  list({ after, before }: listContasParams): Promise<listContasResponse>
 }

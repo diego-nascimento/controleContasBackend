@@ -1,5 +1,8 @@
 import { contaModel } from '../../../domain/models/conta'
-import { IListContas } from '../../../domain/useCases/conta/listConta'
+import {
+  IListContas,
+  listContasResponse
+} from '../../../domain/useCases/conta/listConta'
 import { IListContasInfra } from '../../protocols/conta/listConta'
 
 export class listContasData implements IListContas {
@@ -8,9 +11,16 @@ export class listContasData implements IListContas {
     this.contas = contas
   }
 
-  async listContas(): Promise<contaModel[]> {
+  async listContas({ after, before }): Promise<listContasResponse> {
     try {
-      return await this.contas.list()
+      const { contas, soma } = await this.contas.list({
+        after,
+        before
+      })
+      return {
+        contas,
+        soma
+      }
     } catch (error) {
       throw new Error(error)
     }

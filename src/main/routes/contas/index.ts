@@ -11,6 +11,6 @@ routes.post(
   multerConfig.single('image'),
   httpExpressController(newContaFactory())
 )
-routes.get('/contas', httpExpressController(listContasFactory()))
+routes.post('/contas', httpExpressController(listContasFactory()))
 
 export default routes

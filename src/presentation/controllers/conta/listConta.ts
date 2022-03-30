@@ -12,7 +12,10 @@ export class listContasPresentation implements IController {
 
   async handler(request: httpRequest): Promise<httpResponse> {
     try {
-      const response = await this.contas.listContas()
+      const after = request.body.after
+      const before = request.body.before
+
+      const response = await this.contas.listContas({ after, before })
 
       return await handleResponses({
         status: 200,
